@@ -1,0 +1,8 @@
+/*
+.*
+*.aps
+!/res/
+!/src/
+!/.gitignore
+!/CMakeLists.txt
+!/makefile
