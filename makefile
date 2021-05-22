@@ -30,6 +30,7 @@ check:
 	@$(ACE)/llvm/bin/lldb-server version 2>/dev/null
 	@$(ACE)/llvm/bin/lldb-vscode --help >/dev/null
 	@$(ACE)/llvm/bin/llvm-ar --version >/dev/null
+	@$(ACE)/llvm/bin/llvm-nm --version >/dev/null
 	@$(ACE)/llvm/bin/llvm-objcopy --version >/dev/null
 	@$(ACE)/llvm/bin/llvm-rc '/?' >/dev/null
 	@echo "Checking ACE binaries: OK"
