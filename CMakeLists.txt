@@ -25,10 +25,6 @@ if(BUILD_SHARED_LIBS)
   endif()
 endif()
 
-# Dependencies
-find_package(fmt REQUIRED)
-target_link_libraries(library PUBLIC fmt::fmt)
-
 if(NOT WIN32)
   target_link_libraries(library PUBLIC dl)
 endif()
@@ -50,41 +46,4 @@ else()
   add_custom_target(run-main COMMENT "Running main ..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} USES_TERMINAL
     COMMAND $<TARGET_FILE:main>)
-endif()
-
-# Benchmarks
-add_executable(benchmarks src/benchmarks.cpp src/main.manifest)
-target_compile_definitions(benchmarks PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
-target_compile_options(benchmarks PRIVATE ${WARNING_OPTIONS})
-
-find_package(benchmark REQUIRED)
-target_link_libraries(benchmarks PRIVATE library benchmark::benchmark)
-
-if(WIN32 AND CMAKE_HOST_SYSTEM_NAME STREQUAL Linux)
-  add_custom_target(run-benchmarks COMMENT "Running benchmarks.exe ..."
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} USES_TERMINAL
-    COMMAND ${CMAKE_COMMAND} -E env ${WINE} $<TARGET_FILE:benchmarks>)
-else()
-  add_custom_target(run-benchmarks COMMENT "Running benchmarks ..."
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} USES_TERMINAL
-    COMMAND $<TARGET_FILE:benchmarks>)
-endif()
-
-# Tests
-add_executable(tests src/tests.cpp src/main.manifest)
-target_compile_definitions(tests PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
-target_compile_options(tests PRIVATE ${WARNING_OPTIONS})
-
-find_package(doctest REQUIRED)
-target_link_libraries(tests PRIVATE library doctest::doctest)
-doctest_discover_tests(tests WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
-if(WIN32 AND CMAKE_HOST_SYSTEM_NAME STREQUAL Linux)
-  add_custom_target(run-tests COMMENT "Running tests.exe ..."
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} USES_TERMINAL
-    COMMAND ${CMAKE_COMMAND} -E env ${WINE} $<TARGET_FILE:tests>)
-else()
-  add_custom_target(run-tests COMMENT "Running tests ..."
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} USES_TERMINAL
-    COMMAND $<TARGET_FILE:tests>)
 endif()

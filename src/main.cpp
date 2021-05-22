@@ -1,4 +1,3 @@
-#include <fmt/format.h>
 #include <library.hpp>
 #include <exception>
 #include <stdexcept>
@@ -18,8 +17,8 @@ int main(int argc, char* argv[])
     throw std::runtime_error(std::to_string(argc));
   }
   catch (const std::exception& e) {
-    fmt::print("exceptions: {}\n", e.what());
+    std::puts(e.what());
   }
 #endif
-  fmt::print("library: {}\n", library::test());
+  std::puts(library::test().data());
 }
