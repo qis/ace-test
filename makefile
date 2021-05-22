@@ -20,19 +20,19 @@ msvc:
 
 check:
 	@echo ""
-	@$(ACE)/bin/clang --version >/dev/null
-	@$(ACE)/bin/clang-format --version >/dev/null
-	@$(ACE)/bin/clang-tidy --version >/dev/null
-	@$(ACE)/bin/clangd --version >/dev/null
-	@$(ACE)/bin/lld-link --version >/dev/null
-	@$(ACE)/bin/lldb --version >/dev/null
-	@$(ACE)/bin/lldb-instr --version >/dev/null
-	@$(ACE)/bin/lldb-server version 2>/dev/null
-	@$(ACE)/bin/lldb-vscode --help >/dev/null
-	@$(ACE)/bin/llvm-ar --version >/dev/null
-	@$(ACE)/bin/llvm-mt '/?' >/dev/null
-	@$(ACE)/bin/llvm-objcopy --version >/dev/null
-	@$(ACE)/bin/llvm-rc '/?' >/dev/null
+	@$(ACE)/llvm/bin/clang --version >/dev/null
+	@$(ACE)/llvm/bin/clang-format --version >/dev/null
+	@$(ACE)/llvm/bin/clang-tidy --version >/dev/null
+	@$(ACE)/llvm/bin/clangd --version >/dev/null
+	@$(ACE)/llvm/bin/lld-link --version >/dev/null
+	@$(ACE)/llvm/bin/lldb --version >/dev/null
+	@$(ACE)/llvm/bin/lldb-instr --version >/dev/null
+	@$(ACE)/llvm/bin/lldb-server version 2>/dev/null
+	@$(ACE)/llvm/bin/lldb-vscode --help >/dev/null
+	@$(ACE)/llvm/bin/llvm-ar --version >/dev/null
+	@$(ACE)/llvm/bin/llvm-mt '/?' >/dev/null
+	@$(ACE)/llvm/bin/llvm-objcopy --version >/dev/null
+	@$(ACE)/llvm/bin/llvm-rc '/?' >/dev/null
 	@echo "Checking ACE binaries: OK"
 	@echo ""
 
