@@ -52,3 +52,6 @@ target_link_libraries(ace PRIVATE ace-lzma)
 
 add_subdirectory(src/lz4)
 target_link_libraries(ace PRIVATE ace-lz4)
+
+add_subdirectory(src/brotli)
+target_link_libraries(ace PRIVATE ace-brotli)
