@@ -10,7 +10,8 @@ import ace.brotli;
 import ace.zstd;
 import ace.deflate;
 import ace.miniz;
-import std;
+import ace.jpeg;
+import ace.jpeg.turbo;
 
 TEST_CASE("xml2")
 {
@@ -60,6 +61,16 @@ TEST_CASE("deflate")
 TEST_CASE("miniz")
 {
   ace::miniz::test();
+}
+
+TEST_CASE("jpeg")
+{
+  ace::jpeg::test();
+}
+
+TEST_CASE("jpeg::turbo")
+{
+  ace::jpeg::turbo::test();
 }
 
 int main(int argc, char* argv[])

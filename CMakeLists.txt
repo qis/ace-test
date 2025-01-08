@@ -64,3 +64,9 @@ target_link_libraries(ace PRIVATE ace-deflate)
 
 add_subdirectory(src/miniz)
 target_link_libraries(ace PRIVATE ace-miniz)
+
+add_subdirectory(src/jpeg)
+target_link_libraries(ace PRIVATE ace-jpeg)
+
+add_subdirectory(src/jpeg-turbo)
+target_link_libraries(ace PRIVATE ace-jpeg-turbo)

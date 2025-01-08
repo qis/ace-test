@@ -1,7 +1,8 @@
 module;
-#include "pugixml.hpp"
-#include <error.hpp>
-#include <string_view>
+// clang-format off
+#include <pugixml.hpp>
+// clang-format on
+#include <common.hpp>
 module ace.pugixml;
 
 namespace ace::pugixml {

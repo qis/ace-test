@@ -1,7 +1,8 @@
 module;
-#include "libdeflate.h"
+// clang-format off
+#include <libdeflate.h>
+// clang-format on
 #include <common.hpp>
-#include <memory>
 module ace.deflate;
 
 namespace ace::deflate {

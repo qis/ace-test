@@ -1,7 +1,8 @@
 module;
-#include "libxml/parser.h"
-#include <error.hpp>
-#include <memory>
+// clang-format off
+#include <libxml/parser.h>
+// clang-format on
+#include <common.hpp>
 module ace.xml2;
 
 namespace ace::xml2 {

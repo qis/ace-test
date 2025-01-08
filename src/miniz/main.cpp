@@ -1,5 +1,7 @@
 module;
-#include "miniz.h"
+// clang-format off
+#include <miniz.h>
+// clang-format on
 #include <common.hpp>
 module ace.miniz;
 

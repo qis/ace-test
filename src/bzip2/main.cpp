@@ -1,5 +1,7 @@
 module;
-#include "bzlib.h"
+// clang-format off
+#include <bzlib.h>
+// clang-format on
 #include <common.hpp>
 module ace.bzip2;
 

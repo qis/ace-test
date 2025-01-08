@@ -1,5 +1,7 @@
 module;
-#include "lz4.h"
+// clang-format off
+#include <lz4.h>
+// clang-format on
 #include <common.hpp>
 module ace.lz4;
 

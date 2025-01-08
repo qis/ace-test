@@ -1,5 +1,7 @@
 module;
-#include "zlib.h"
+// clang-format off
+#include <zlib.h>
+// clang-format on
 #include <common.hpp>
 module ace.zlib;
 

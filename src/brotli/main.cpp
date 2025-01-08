@@ -1,6 +1,8 @@
 module;
-#include "brotli/decode.h"
-#include "brotli/encode.h"
+// clang-format off
+#include <brotli/decode.h>
+#include <brotli/encode.h>
+// clang-format on
 #include <common.hpp>
 module ace.brotli;
 

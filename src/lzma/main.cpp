@@ -1,5 +1,7 @@
 module;
-#include "lzma.h"
+// clang-format off
+#include <lzma.h>
+// clang-format on
 #include <common.hpp>
 module ace.lzma;
 
