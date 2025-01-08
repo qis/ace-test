@@ -43,3 +43,6 @@ target_link_libraries(ace PRIVATE ace-pugixml)
 
 add_subdirectory(src/zlib)
 target_link_libraries(ace PRIVATE ace-zlib)
+
+add_subdirectory(src/bzip2)
+target_link_libraries(ace PRIVATE ace-bzip2)

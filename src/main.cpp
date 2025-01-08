@@ -3,6 +3,7 @@
 import ace.libxml2;
 import ace.pugixml;
 import ace.zlib;
+import ace.bzip2;
 import std;
 
 TEST_CASE("libxml2")
@@ -18,6 +19,11 @@ TEST_CASE("pugixml")
 TEST_CASE("zlib")
 {
   ace::zlib::test();
+}
+
+TEST_CASE("bzip2")
+{
+  ace::bzip2::test();
 }
 
 int main(int argc, char* argv[])
