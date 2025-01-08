@@ -1,0 +1,9 @@
+module;
+#include <config.hpp>
+export module ace.lz4;
+
+export namespace ace::lz4 {
+
+ACE_API void test();
+
+}  // namespace ace::lz4

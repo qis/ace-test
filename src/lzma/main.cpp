@@ -25,11 +25,9 @@ void test()
 
   auto status = lzma_code(&strm, LZMA_FINISH);
   lzma_end(&strm);
-
   if (status != LZMA_STREAM_END) {
     throw error{ "Could not encode data." };
   }
-
   tmp.resize(strm.total_out);
 
   strm = LZMA_STREAM_INIT;
@@ -48,11 +46,9 @@ void test()
 
   status = lzma_code(&strm, LZMA_FINISH);
   lzma_end(&strm);
-
   if (status != LZMA_STREAM_END) {
     throw std::runtime_error{ "Could not decode data." };
   }
-
   dst.resize(strm.total_out);
 
   if (src != dst) {
