@@ -2,6 +2,7 @@
 #include <doctest/doctest.h>
 import ace.libxml2;
 import ace.pugixml;
+import ace.zlib;
 import std;
 
 TEST_CASE("libxml2")
@@ -12,6 +13,11 @@ TEST_CASE("libxml2")
 TEST_CASE("pugixml")
 {
   ace::pugixml::test();
+}
+
+TEST_CASE("zlib")
+{
+  ace::zlib::test();
 }
 
 int main(int argc, char* argv[])

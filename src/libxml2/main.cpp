@@ -1,6 +1,6 @@
 module;
 #include "libxml/parser.h"
-#include <common.hpp>
+#include <error.hpp>
 #include <memory>
 module ace.libxml2;
 

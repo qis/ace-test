@@ -1,6 +1,6 @@
 module;
 #include "pugixml.hpp"
-#include <common.hpp>
+#include <error.hpp>
 #include <string_view>
 module ace.pugixml;
 

@@ -1,5 +1,5 @@
 module;
-#include <common.hpp>
+#include <config.hpp>
 export module ace.pugixml;
 
 export namespace ace::pugixml {

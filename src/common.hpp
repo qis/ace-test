@@ -1,34 +1,30 @@
 #pragma once
-#include <format>
-#include <stdexcept>
+#include "error.hpp"
+#include <fstream>
 #include <string>
-
-#ifdef ACE_EXPORT
-#ifdef _WIN32
-#define ACE_API __declspec(dllexport)
-#else
-#define ACE_API __attribute__((__visibility__("default")))
-#endif
-#else
-#ifdef _WIN32
-#define ACE_API __declspec(dllimport)
-#else
-#define ACE_API
-#endif
-#endif
+#include <vector>
 
 namespace ace {
 
-class error : public std::runtime_error {
-public:
-  error(const std::string& message) :
-    std::runtime_error(message)
-  {}
-
-  template <class Arg, class... Args>
-  error(const std::format_string<Arg, Args...> fmt, Arg&& arg, Args&&... args) :
-    std::runtime_error(std::vformat(fmt.get(), std::make_format_args(arg, args...)))
-  {}
-};
+template <class T>
+std::vector<T> read_file(const std::string& filename)
+{
+  static_assert(sizeof(T) == sizeof(char));
+  std::ifstream file{ filename, std::ios::ate | std::ios::binary };
+  if (!file) {
+    throw error{ "Could not open file: {}", filename };
+  }
+  std::vector<T> data;
+  if (const auto size = static_cast<std::size_t>(file.tellg())) {
+    data.resize(size);
+    if (!file.seekg(0, std::ios::beg)) {
+      throw error{ "Could not seek in file: {}", filename };
+    }
+    if (!file.read(reinterpret_cast<char*>(data.data()), data.size())) {
+      throw error{ "Could not read file: {}", filename };
+    }
+  }
+  return data;
+}
 
 }  // namespace ace

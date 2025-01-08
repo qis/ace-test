@@ -1,5 +1,5 @@
 module;
-#include <common.hpp>
+#include <config.hpp>
 export module ace.libxml2;
 
 export namespace ace::libxml2 {
