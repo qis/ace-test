@@ -1,8 +1,14 @@
 /*
 .*
-*.aps
 !/res/
 !/src/
-!/.gitignore
+!.clangd
+!.clang-format
+!.clang-tidy
+!.editorconfig
+!.gitattributes
+!.gitignore
 !/CMakeLists.txt
-!/makefile
+!/CMakePresets.json
+!/readme.md
+!/test.*

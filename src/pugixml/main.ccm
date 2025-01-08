@@ -1,0 +1,9 @@
+module;
+#include <common.hpp>
+export module ace.pugixml;
+
+export namespace ace::pugixml {
+
+ACE_API void test();
+
+}  // namespace ace::pugixml

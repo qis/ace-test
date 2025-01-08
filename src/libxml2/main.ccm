@@ -1,0 +1,9 @@
+module;
+#include <common.hpp>
+export module ace.libxml2;
+
+export namespace ace::libxml2 {
+
+ACE_API void test();
+
+}  // namespace ace::libxml2

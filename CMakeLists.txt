@@ -1,49 +1,42 @@
-cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
-project(ace-test VERSION 0.1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.30 FATAL_ERROR)
+project(ace DESCRIPTION "Ace" VERSION 0.1.0 LANGUAGES CXX)
 
 # Version
+set(PROJECT_VENDOR "Vendor")
 configure_file(res/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/version.h LF)
 
-# Warning Options
-set(WARNING_OPTIONS -Wall -Wextra -Wpedantic -Werror -Wno-unused-parameter -Wno-unused-variable)
+# Application
+add_executable(ace src/main.cpp src/main.rc)
+target_include_directories(ace PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_compile_features(ace PRIVATE cxx_std_26)
 
-# Library
-add_library(library src/library.hpp src/library.cpp)
-target_compile_definitions(library PRIVATE LIBRARY_BUILD NOMINMAX WIN32_LEAN_AND_MEAN)
-target_compile_options(library PRIVATE ${WARNING_OPTIONS})
-
-target_include_directories(library PRIVATE src PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-  $<INSTALL_INTERFACE:include>)
-
-if(BUILD_SHARED_LIBS)
-  set_target_properties(library PROPERTIES DEFINE_SYMBOL LIBRARY_EXPORTS)
-  target_compile_definitions(library PUBLIC LIBRARY_SHARED)
-  if(NOT WIN32)
-    target_compile_options(library PRIVATE -fvisibility=hidden)
-  endif()
+if(WIN32)
+  target_compile_definitions(ace PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
 endif()
 
-if(NOT WIN32)
-  target_link_libraries(library PUBLIC dl)
+# Emulator
+if(CMAKE_HOST_UNIX AND WIN32)
+  add_custom_target(wine
+    COMMAND ${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:ace>
+    USES_TERMINAL)
 endif()
 
-# Wine
-set(WINE WINEPATH=$ENV{ACE}/msvc/bin WINEDEBUG=-all wine)
+# Tests
+include(CTest)
+find_package(doctest CONFIG REQUIRED)
+target_link_libraries(ace PRIVATE doctest::doctest)
 
-# Main
-add_executable(main src/main.cpp src/main.manifest src/main.rc)
-target_compile_definitions(main PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
-target_compile_options(main PRIVATE ${WARNING_OPTIONS})
-target_link_libraries(main PRIVATE library)
-
-if(WIN32 AND CMAKE_HOST_SYSTEM_NAME STREQUAL Linux)
-  add_custom_target(run-main COMMENT "Running main.exe ..."
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} USES_TERMINAL
-    COMMAND ${CMAKE_COMMAND} -E env ${WINE} $<TARGET_FILE:main>)
-else()
-  add_custom_target(run-main COMMENT "Running main ..."
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} USES_TERMINAL
-    COMMAND $<TARGET_FILE:main>)
+if(CMAKE_HOST_SYSTEM_NAME STREQUAL CMAKE_SYSTEM_NAME)
+  include(doctest)
+  doctest_discover_tests(ace WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
+
+# Dependencies
+find_package(Threads REQUIRED)
+target_link_libraries(ace PRIVATE Threads::Threads)
+
+add_subdirectory(src/libxml2)
+target_link_libraries(ace PRIVATE ace-libxml2)
+
+add_subdirectory(src/pugixml)
+target_link_libraries(ace PRIVATE ace-pugixml)

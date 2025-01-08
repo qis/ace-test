@@ -1,24 +1,23 @@
-#include <library.hpp>
-#include <exception>
-#include <stdexcept>
-#include <string>
+#define DOCTEST_CONFIG_IMPLEMENT
+#include <doctest/doctest.h>
+import ace.libxml2;
+import ace.pugixml;
+import std;
 
-#if !defined(__clang__) || defined(__cpp_exceptions)
-#  define LLVM_EXCEPTIONS_ENABLED 1
-#else
-#  define LLVM_EXCEPTIONS_ENABLED 0
-#endif
+TEST_CASE("libxml2")
+{
+  ace::libxml2::test();
+}
 
+TEST_CASE("pugixml")
+{
+  ace::pugixml::test();
+}
 
 int main(int argc, char* argv[])
 {
-#if LLVM_EXCEPTIONS_ENABLED
-  try {
-    throw std::runtime_error(std::to_string(argc));
-  }
-  catch (const std::exception& e) {
-    std::puts(e.what());
-  }
-#endif
-  std::puts(library::test().data());
+  doctest::Context context;
+  context.applyCommandLine(argc, argv);
+  context.setOption("no-intro", 1);
+  return context.run();
 }

@@ -1,0 +1,101 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 30
+  },
+  "configurePresets": [
+    {
+      "hidden": true,
+      "name": "default",
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
+      "architecture": { "value": "x64", "strategy": "external" },
+      "warnings": { "dev": false },
+      "cacheVariables": {
+        "CMAKE_CXX_MODULE_STD": true,
+        "CMAKE_CXX_SCAN_FOR_MODULES": true,
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+        "CMAKE_EXPERIMENTAL_CXX_IMPORT_STD": "0e5b6991-d74f-4b3d-a41c-cf096e0b2508",
+        "CMAKE_CONFIGURATION_TYPES": "Debug;Release;MinSizeRel;RelWithDebInfo;Coverage",
+        "CMAKE_DEFAULT_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux",
+      "displayName": "Linux",
+      "toolchainFile": "$env{ACE}/linux.cmake",
+      "condition": { "type": "notEquals", "lhs": "${hostSystemName}", "rhs": "Windows" },
+      "inherits": "default"
+    },
+    {
+      "name": "windows",
+      "displayName": "Windows",
+      "toolchainFile": "$env{ACE}/mingw.cmake",
+      "inherits": "default"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "linux-debug",
+      "displayName": "Debug",
+      "configuration": "Debug",
+      "configurePreset": "linux"
+    },
+    {
+      "name": "linux-release",
+      "displayName": "Release",
+      "configuration": "Release",
+      "configurePreset": "linux"
+    },
+    {
+      "name": "linux-relwithdebinfo",
+      "displayName": "RelWithDebInfo",
+      "configuration": "RelWithDebInfo",
+      "configurePreset": "linux"
+    },
+    {
+      "name": "linux-minsizerel",
+      "displayName": "MinSizeRel",
+      "configuration": "MinSizeRel",
+      "configurePreset": "linux"
+    },
+    {
+      "name": "linux-coverage",
+      "displayName": "Coverage",
+      "configuration": "Coverage",
+      "configurePreset": "linux"
+    },
+    {
+      "name": "windows-debug",
+      "displayName": "Debug",
+      "configuration": "Debug",
+      "configurePreset": "windows"
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Release",
+      "configuration": "Release",
+      "configurePreset": "windows"
+    },
+    {
+      "name": "windows-relwithdebinfo",
+      "displayName": "RelWithDebInfo",
+      "configuration": "RelWithDebInfo",
+      "configurePreset": "windows"
+    },
+    {
+      "name": "windows-minsizerel",
+      "displayName": "MinSizeRel",
+      "configuration": "MinSizeRel",
+      "configurePreset": "windows"
+    },
+    {
+      "name": "windows-coverage",
+      "displayName": "Coverage",
+      "configuration": "Coverage",
+      "configurePreset": "windows"
+    }
+  ]
+}
