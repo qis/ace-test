@@ -22,7 +22,7 @@ void test()
     &size,
     tmp.data());
   if (!status) {
-    throw std::runtime_error{ "Could not compress data." };
+    throw error{ "Could not compress data." };
   }
   tmp.resize(size);
 
@@ -31,7 +31,7 @@ void test()
   size = dst.size();
   status = BrotliDecoderDecompress(tmp.size(), tmp.data(), &size, dst.data());
   if (!status) {
-    throw std::runtime_error{ "Could not decompress data." };
+    throw error{ "Could not decompress data." };
   }
   dst.resize(size);
 

@@ -7,6 +7,7 @@ import ace.bzip2;
 import ace.lzma;
 import ace.lz4;
 import ace.brotli;
+import ace.zstd;
 import std;
 
 TEST_CASE("xml2")
@@ -42,6 +43,11 @@ TEST_CASE("lz4")
 TEST_CASE("brotli")
 {
   ace::brotli::test();
+}
+
+TEST_CASE("zstd")
+{
+  ace::zstd::test();
 }
 
 int main(int argc, char* argv[])

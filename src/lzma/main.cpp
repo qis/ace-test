@@ -47,7 +47,7 @@ void test()
   status = lzma_code(&strm, LZMA_FINISH);
   lzma_end(&strm);
   if (status != LZMA_STREAM_END) {
-    throw std::runtime_error{ "Could not decode data." };
+    throw error{ "Could not decode data." };
   }
   dst.resize(strm.total_out);
 
