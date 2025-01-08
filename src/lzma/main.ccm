@@ -1,0 +1,9 @@
+module;
+#include <config.hpp>
+export module ace.lzma;
+
+export namespace ace::lzma {
+
+ACE_API void test();
+
+}  // namespace ace::lzma

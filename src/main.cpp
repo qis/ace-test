@@ -1,14 +1,15 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest/doctest.h>
-import ace.libxml2;
+import ace.xml2;
 import ace.pugixml;
 import ace.zlib;
 import ace.bzip2;
+import ace.lzma;
 import std;
 
-TEST_CASE("libxml2")
+TEST_CASE("xml2")
 {
-  ace::libxml2::test();
+  ace::xml2::test();
 }
 
 TEST_CASE("pugixml")
@@ -24,6 +25,11 @@ TEST_CASE("zlib")
 TEST_CASE("bzip2")
 {
   ace::bzip2::test();
+}
+
+TEST_CASE("lzma")
+{
+  ace::lzma::test();
 }
 
 int main(int argc, char* argv[])

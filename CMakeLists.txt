@@ -35,8 +35,8 @@ endif()
 find_package(Threads REQUIRED)
 target_link_libraries(ace PRIVATE Threads::Threads)
 
-add_subdirectory(src/libxml2)
-target_link_libraries(ace PRIVATE ace-libxml2)
+add_subdirectory(src/xml2)
+target_link_libraries(ace PRIVATE ace-xml2)
 
 add_subdirectory(src/pugixml)
 target_link_libraries(ace PRIVATE ace-pugixml)
@@ -46,3 +46,6 @@ target_link_libraries(ace PRIVATE ace-zlib)
 
 add_subdirectory(src/bzip2)
 target_link_libraries(ace PRIVATE ace-bzip2)
+
+add_subdirectory(src/lzma)
+target_link_libraries(ace PRIVATE ace-lzma)

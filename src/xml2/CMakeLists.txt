@@ -1,4 +1,4 @@
-project(ace-libxml2 LANGUAGES CXX)
+project(ace-xml2 LANGUAGES CXX)
 add_library(${PROJECT_NAME} SHARED main.cpp ${CMAKE_SOURCE_DIR}/src/main.manifest)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_VISIBILITY_PRESET hidden)
 target_sources(${PROJECT_NAME} PUBLIC FILE_SET CXX_MODULES FILES main.ccm)

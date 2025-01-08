@@ -2,9 +2,9 @@ module;
 #include "libxml/parser.h"
 #include <error.hpp>
 #include <memory>
-module ace.libxml2;
+module ace.xml2;
 
-namespace ace::libxml2 {
+namespace ace::xml2 {
 
 void test()
 {
@@ -18,4 +18,4 @@ void test()
   }
 }
 
-}  // namespace ace::libxml2
+}  // namespace ace::xml2
