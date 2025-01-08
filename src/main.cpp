@@ -8,6 +8,8 @@ import ace.lzma;
 import ace.lz4;
 import ace.brotli;
 import ace.zstd;
+import ace.deflate;
+import ace.miniz;
 import std;
 
 TEST_CASE("xml2")
@@ -48,6 +50,16 @@ TEST_CASE("brotli")
 TEST_CASE("zstd")
 {
   ace::zstd::test();
+}
+
+TEST_CASE("deflate")
+{
+  ace::deflate::test();
+}
+
+TEST_CASE("miniz")
+{
+  ace::miniz::test();
 }
 
 int main(int argc, char* argv[])

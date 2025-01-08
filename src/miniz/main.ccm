@@ -1,0 +1,9 @@
+module;
+#include <config.hpp>
+export module ace.miniz;
+
+export namespace ace::miniz {
+
+ACE_API void test();
+
+}  // namespace ace::miniz

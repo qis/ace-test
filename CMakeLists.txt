@@ -58,3 +58,9 @@ target_link_libraries(ace PRIVATE ace-brotli)
 
 add_subdirectory(src/zstd)
 target_link_libraries(ace PRIVATE ace-zstd)
+
+add_subdirectory(src/deflate)
+target_link_libraries(ace PRIVATE ace-deflate)
+
+add_subdirectory(src/miniz)
+target_link_libraries(ace PRIVATE ace-miniz)
