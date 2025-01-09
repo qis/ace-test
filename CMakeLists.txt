@@ -7,11 +7,13 @@ configure_file(res/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/version.h LF)
 
 # Application
 add_executable(ace src/main.cpp src/main.rc)
-target_include_directories(ace PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_include_directories(ace PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src src)
 target_compile_features(ace PRIVATE cxx_std_26)
 
 if(WIN32)
   target_compile_definitions(ace PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
+else()
+  target_link_libraries(ace PRIVATE dl)
 endif()
 
 # Emulator
@@ -36,46 +38,17 @@ find_package(Threads REQUIRED)
 target_link_libraries(ace PRIVATE Threads::Threads)
 
 add_subdirectory(src/xml2)
-target_link_libraries(ace PRIVATE ace-xml2)
-
 add_subdirectory(src/pugixml)
-target_link_libraries(ace PRIVATE ace-pugixml)
-
 add_subdirectory(src/zlib)
-target_link_libraries(ace PRIVATE ace-zlib)
-
 add_subdirectory(src/bzip2)
-target_link_libraries(ace PRIVATE ace-bzip2)
-
 add_subdirectory(src/lzma)
-target_link_libraries(ace PRIVATE ace-lzma)
-
 add_subdirectory(src/lz4)
-target_link_libraries(ace PRIVATE ace-lz4)
-
 add_subdirectory(src/brotli)
-target_link_libraries(ace PRIVATE ace-brotli)
-
 add_subdirectory(src/zstd)
-target_link_libraries(ace PRIVATE ace-zstd)
-
 add_subdirectory(src/deflate)
-target_link_libraries(ace PRIVATE ace-deflate)
-
 add_subdirectory(src/miniz)
-target_link_libraries(ace PRIVATE ace-miniz)
-
 add_subdirectory(src/jpeg)
-target_link_libraries(ace PRIVATE ace-jpeg)
-
 add_subdirectory(src/jpeg-turbo)
-target_link_libraries(ace PRIVATE ace-jpeg-turbo)
-
 add_subdirectory(src/png)
-target_link_libraries(ace PRIVATE ace-png)
-
 add_subdirectory(src/avif)
-target_link_libraries(ace PRIVATE ace-avif)
-
 add_subdirectory(src/svg)
-target_link_libraries(ace PRIVATE ace-svg)

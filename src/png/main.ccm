@@ -1,9 +1,65 @@
 module;
-#include <config.hpp>
-export module ace.png;
+// clang-format off
+#include <png.h>
+// clang-format on
+#include <common.hpp>
+export module ace;
 
-export namespace ace::png {
+export namespace ace {
 
-ACE_API void test();
+void test()
+{
+  const auto file = open("test.png");
 
-}  // namespace ace::png
+  auto png = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+  if (!png) {
+    throw error{ "Could not create libpng handle." };
+  }
+
+  auto info = png_create_info_struct(png);
+  const auto se =
+    on_scope_exit([&]() { png_destroy_read_struct(&png, info ? &info : nullptr, nullptr); });
+  if (!info) {
+    throw error{ "Could not create libpng info." };
+  }
+
+  png_init_io(png, file.get());
+  png_read_info(png, info);
+
+  const auto cx = png_get_image_width(png, info);
+  const auto cy = png_get_image_height(png, info);
+  const auto ct = png_get_color_type(png, info);
+  const auto bd = png_get_bit_depth(png, info);
+  if (cx != 800 || cy != 800) {
+    throw error{ "Unexpected image size: {}x{}", cx, cy };
+  }
+  if (ct != PNG_COLOR_TYPE_RGB) {
+    throw error{ "Unexpected image color type: {}", static_cast<unsigned>(ct) };
+  }
+  if (bd != 8) {
+    throw error{ "Unexpected image bit depth: {}", static_cast<unsigned>(ct) };
+  }
+  const auto stride = png_get_rowbytes(png, info);
+  if (stride != 800 * 3) {
+    throw error{ "Unexpected image stride: {}", stride };
+  }
+
+  std::vector<png_byte> rgb(cy * stride, '\0');
+  std::vector<png_bytep> rows(cy, nullptr);
+  for (auto i = 0u; i < 800u; i++) {
+    rows[i] = rgb.data() + i * stride;
+  }
+  png_read_image(png, rows.data());
+  png_read_end(png, nullptr);
+  auto success = true;
+  for (auto x = 0u; x < 800u; x++) {
+    for (auto y = 0u; y < 800u; y++) {
+      const auto p = rgb.data() + y * 800 * 3 + x * 3;
+      if ((static_cast<unsigned>(p[0]) << 16) + (static_cast<unsigned>(p[1]) << 8) + p[2] == 0) {
+        throw error{ "Unexpected black pixel at: {}:{}", x, y };
+      }
+    }
+  }
+}
+
+}  // namespace ace
