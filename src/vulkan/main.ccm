@@ -1,0 +1,17 @@
+module;
+// clang-format off
+#include <volk.h>
+#include <ktxvulkan.h>
+// clang-format on
+#include <common.hpp>
+export module ace;
+
+export namespace ace {
+
+void test()
+{
+  // https://github.com/KhronosGroup/KTX-Software/blob/main/examples/vkload.cpp
+  // Possible vcpkg vulkan related port regressions will be tested here in the future.
+}
+
+}  // namespace ace

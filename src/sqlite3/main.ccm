@@ -1,0 +1,19 @@
+module;
+// clang-format off
+#include <sqlite3.h>
+// clang-format on
+#include <common.hpp>
+export module ace;
+
+export namespace ace {
+
+void test()
+{
+  if (const auto version = sqlite3_libversion(); !version) {
+    throw error{ "Missing SQLite3 version." };
+  } else if (std::string_view{ version }.empty()) {
+    throw error{ "Empty SQLite3 version." };
+  }
+}
+
+}  // namespace ace
