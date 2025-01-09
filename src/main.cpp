@@ -13,6 +13,7 @@ import ace.miniz;
 import ace.jpeg;
 import ace.jpeg.turbo;
 import ace.png;
+import ace.avif;
 
 TEST_CASE("xml2")
 {
@@ -77,6 +78,11 @@ TEST_CASE("jpeg::turbo")
 TEST_CASE("png")
 {
   ace::png::test();
+}
+
+TEST_CASE("avif")
+{
+  ace::avif::test();
 }
 
 int main(int argc, char* argv[])

@@ -73,3 +73,6 @@ target_link_libraries(ace PRIVATE ace-jpeg-turbo)
 
 add_subdirectory(src/png)
 target_link_libraries(ace PRIVATE ace-png)
+
+add_subdirectory(src/avif)
+target_link_libraries(ace PRIVATE ace-avif)
