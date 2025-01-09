@@ -92,6 +92,7 @@ ACE_TEST("glm")
 ACE_TEST("glm-avx2")
 ACE_TEST("vulkan")
 ACE_TEST("sqlite3")
+ACE_TEST("openssl")
 
 int main(int argc, char* argv[])
 {

@@ -1,0 +1,25 @@
+module;
+// clang-format off
+#include <openssl/crypto.h>
+#include <openssl/ssl.h>
+// clang-format on
+#include <common.hpp>
+export module ace;
+
+export namespace ace {
+
+void test()
+{
+  if (const auto version = OpenSSL_version(OPENSSL_FULL_VERSION_STRING); !version) {
+    throw error{ "Missing OpenSSL version." };
+  } else if (std::string_view{ version }.empty()) {
+    throw error{ "Empty OpenSSL version." };
+  }
+  const auto context = SSL_CTX_new(TLS_server_method());
+  if (!context) {
+    throw error{ "Could not create SSL context." };
+  }
+  SSL_CTX_free(context);
+}
+
+}  // namespace ace
