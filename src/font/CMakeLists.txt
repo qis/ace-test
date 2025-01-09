@@ -1,7 +1,9 @@
 project(ace-font LANGUAGES CXX)
 include(${CMAKE_CURRENT_LIST_DIR}/../common.cmake)
 
-find_package(ZLIB REQUIRED)
+find_package(PNG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE PNG::PNG)
+
 find_package(Freetype REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Freetype::Freetype)
 

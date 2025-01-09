@@ -42,7 +42,6 @@ std::filesystem::path base()
       free(s);  // NOLINT(cppcoreguidelines-no-malloc)
     }
 #endif
-
     // Get executable path.
     std::error_code ec;
     auto path = std::filesystem::canonical(file, ec);
@@ -56,14 +55,31 @@ std::filesystem::path base()
 
 void test(const std::string& name)
 {
+#ifdef _WIN32
+  const auto library = base() / ("libace-" + name + ".dll");
+  const auto handle = LoadLibraryA(library.string().data());
+#else
   const auto library = base() / ("libace-" + name + ".so");
   const auto handle = dlopen(library.string().data(), RTLD_LAZY);
+#endif
   if (!handle) {
-    throw error{ "Could not open library: {}", library.string() };
+#ifdef _WIN32
+    throw error{ "Could not open library: {}\n0x{:X}", library.string(), GetLastError() };
+#else
+    throw error{ "Could not open library: {}\n{}", library.string(), dlerror() };
+#endif
   }
+#ifdef _WIN32
+  const auto func = GetProcAddress(handle, "test");
+#else
   const auto func = dlsym(handle, "test");
+#endif
   if (!func) {
-    throw error{ "Could not find test in library: {}", library.string() };
+#ifdef _WIN32
+    throw error{ "Could not find test in library: {}\n0x{:X}", library.string(), GetLastError() };
+#else
+    throw error{ "Could not find test in library: {}\n{}", library.string(), dlerror() };
+#endif
   }
   reinterpret_cast<void (*)()>(func)();
 }
