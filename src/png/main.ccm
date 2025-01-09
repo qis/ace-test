@@ -1,0 +1,9 @@
+module;
+#include <config.hpp>
+export module ace.png;
+
+export namespace ace::png {
+
+ACE_API void test();
+
+}  // namespace ace::png

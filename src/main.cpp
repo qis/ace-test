@@ -12,6 +12,7 @@ import ace.deflate;
 import ace.miniz;
 import ace.jpeg;
 import ace.jpeg.turbo;
+import ace.png;
 
 TEST_CASE("xml2")
 {
@@ -71,6 +72,11 @@ TEST_CASE("jpeg")
 TEST_CASE("jpeg::turbo")
 {
   ace::jpeg::turbo::test();
+}
+
+TEST_CASE("png")
+{
+  ace::png::test();
 }
 
 int main(int argc, char* argv[])

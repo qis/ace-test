@@ -11,7 +11,7 @@
 
 namespace ace {
 
-inline std::unique_ptr<FILE, decltype(&fclose)> open(const std::string& filename)
+[[nodiscard]] inline std::unique_ptr<FILE, decltype(&fclose)> open(const std::string& filename)
 {
   std::unique_ptr<FILE, decltype(&fclose)> file{
     fopen(filename.data(), "rb"),
@@ -24,7 +24,7 @@ inline std::unique_ptr<FILE, decltype(&fclose)> open(const std::string& filename
 }
 
 template <class T>
-std::vector<T> read_file(const std::string& filename)
+[[nodiscard]] std::vector<T> read_file(const std::string& filename)
 {
   static_assert(sizeof(T) == sizeof(char));
   std::ifstream file{ filename, std::ios::ate | std::ios::binary };
@@ -44,7 +44,7 @@ std::vector<T> read_file(const std::string& filename)
   return data;
 }
 
-class scope_exit {
+class [[nodiscard]] scope_exit {
 public:
   scope_exit(std::function<void()> call) :
     call_(std::move(call))
