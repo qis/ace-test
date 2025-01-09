@@ -22,11 +22,7 @@ Build target.
 
 ```sh
 # Linux
-cmake --build build/linux --config Debug --target main tests
-cmake --build build/linux --config Release --target main tests benchmarks
-cmake --build build/linux --config RelWithDebInfo --target main tests
-cmake --build build/linux --config MinSizeRel --target main tests benchmarks
-cmake --build build/linux --config Coverage --target tests
+cmake --build build/linux --config Debug --target ace --verbose
 
 # Linux & Windows
 cmake --build build/windows --config Debug --target main tests

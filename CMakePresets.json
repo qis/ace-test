@@ -19,7 +19,8 @@
         "CMAKE_EXPORT_COMPILE_COMMANDS": true,
         "CMAKE_EXPERIMENTAL_CXX_IMPORT_STD": "0e5b6991-d74f-4b3d-a41c-cf096e0b2508",
         "CMAKE_CONFIGURATION_TYPES": "Debug;Release;MinSizeRel;RelWithDebInfo;Coverage",
-        "CMAKE_DEFAULT_BUILD_TYPE": "Debug"
+        "CMAKE_DEFAULT_BUILD_TYPE": "Debug",
+        "CMAKE_VERBOSE_MAKEFILE": true
       }
     },
     {

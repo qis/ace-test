@@ -1,0 +1,16 @@
+module;
+export module ace;
+import glm;
+
+export namespace ace {
+
+void test()
+{
+  glm::vec4 position = glm::vec4(glm::vec3(0.0), 1.0);
+  glm::mat4 model = glm::mat4(1.0);
+  glm::vec4 m = glm::vec4(1.0, 1.0, 0.0, 1.0);
+  model[3] += m;  // calls _mm_add_ps in glm/detail/type_vec4_simd.inl
+  glm::vec4 transformed = model * position;
+}
+
+}  // namespace ace

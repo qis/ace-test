@@ -87,6 +87,9 @@ ACE_TEST("jpeg-turbo")
 ACE_TEST("png")
 ACE_TEST("avif")
 ACE_TEST("svg")
+ACE_TEST("font")
+ACE_TEST("glm")
+ACE_TEST("glm-avx2")
 
 int main(int argc, char* argv[])
 {
