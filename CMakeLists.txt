@@ -76,3 +76,6 @@ target_link_libraries(ace PRIVATE ace-png)
 
 add_subdirectory(src/avif)
 target_link_libraries(ace PRIVATE ace-avif)
+
+add_subdirectory(src/svg)
+target_link_libraries(ace PRIVATE ace-svg)

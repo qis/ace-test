@@ -14,6 +14,7 @@ import ace.jpeg;
 import ace.jpeg.turbo;
 import ace.png;
 import ace.avif;
+import ace.svg;
 
 TEST_CASE("xml2")
 {
@@ -83,6 +84,11 @@ TEST_CASE("png")
 TEST_CASE("avif")
 {
   ace::avif::test();
+}
+
+TEST_CASE("svg")
+{
+  ace::svg::test();
 }
 
 int main(int argc, char* argv[])
