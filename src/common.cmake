@@ -15,7 +15,4 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
 endif()
 
-find_package(Threads REQUIRED)
-target_link_libraries(${PROJECT_NAME} PUBLIC Threads::Threads)
-
 add_dependencies(ace ${PROJECT_NAME})

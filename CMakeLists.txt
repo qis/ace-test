@@ -34,9 +34,6 @@ if(CMAKE_HOST_SYSTEM_NAME STREQUAL CMAKE_SYSTEM_NAME)
 endif()
 
 # Dependencies
-find_package(Threads REQUIRED)
-target_link_libraries(ace PRIVATE Threads::Threads)
-
 add_subdirectory(src/xml2)
 add_subdirectory(src/pugixml)
 add_subdirectory(src/zlib)
