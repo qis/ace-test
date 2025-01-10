@@ -36,11 +36,13 @@ std::filesystem::path base()
       size = GetModuleFileNameA(instance, file.data(), static_cast<DWORD>(file.size()));
     } while (GetLastError() == ERROR_INSUFFICIENT_BUFFER);
     file.resize(size);
-#else
+#elifdef __linux__
     if (const auto s = realpath("/proc/self/exe", nullptr)) {
       file.assign(s);
       free(s);  // NOLINT(cppcoreguidelines-no-malloc)
     }
+#else
+#error Unsupported platform
 #endif
     // Get executable path.
     std::error_code ec;
@@ -58,30 +60,27 @@ void test(const std::string& name)
 #ifdef _WIN32
   const auto library = base() / ("libace-" + name + ".dll");
   const auto handle = LoadLibraryA(library.string().data());
-#else
+  if (!handle) {
+    throw error{ "Could not open library: {}\n0x{:X}", library.string(), GetLastError() };
+  }
+  const auto proc = GetProcAddress(handle, "test");
+  if (!proc) {
+    throw error{ "Could not find test in library: {}\n0x{:X}", library.string(), GetLastError() };
+  }
+#elifdef __linux__
   const auto library = base() / ("libace-" + name + ".so");
   const auto handle = dlopen(library.string().data(), RTLD_LAZY);
-#endif
   if (!handle) {
-#ifdef _WIN32
-    throw error{ "Could not open library: {}\n0x{:X}", library.string(), GetLastError() };
-#else
     throw error{ "Could not open library: {}\n{}", library.string(), dlerror() };
-#endif
   }
-#ifdef _WIN32
-  const auto func = GetProcAddress(handle, "test");
-#else
-  const auto func = dlsym(handle, "test");
-#endif
-  if (!func) {
-#ifdef _WIN32
-    throw error{ "Could not find test in library: {}\n0x{:X}", library.string(), GetLastError() };
-#else
+  const auto proc = dlsym(handle, "test");
+  if (!proc) {
     throw error{ "Could not find test in library: {}\n{}", library.string(), dlerror() };
-#endif
   }
-  reinterpret_cast<void (*)()>(func)();
+#else
+#error Unsupported platform
+#endif
+  reinterpret_cast<void (*)()>(proc)();
 }
 
 }  // namespace ace
@@ -110,6 +109,10 @@ ACE_TEST("vulkan")
 ACE_TEST("sqlite3")
 ACE_TEST("openssl")
 ACE_TEST("boost")
+
+#ifdef __linux__
+ACE_TEST("wayland")
+#endif
 
 int main(int argc, char* argv[])
 {

@@ -1,0 +1,32 @@
+module;
+// clang-format off
+#include <wayland-client.h>
+#include <wayland/xdg-shell.h>
+#include <wayland/presentation-time.h>
+#include <wayland/xdg-activation.h>
+#include <wayland/content-type.h>
+#include <wayland/fractional-scale.h>
+#include <wayland/tearing-control.h>
+#include <wayland/xdg-decoration.h>
+#include <wayland/xdg-output.h>
+#include <wayland/fullscreen-shell.h>
+#include <wayland/input-timestamps.h>
+#include <wayland/keyboard-shortcuts-inhibit.h>
+#include <wayland/pointer-constraints.h>
+#include <wayland/relative-pointer.h>
+// clang-format on
+#include <common.hpp>
+export module ace;
+
+export namespace ace {
+
+void test()
+{
+  const auto display = wl_display_connect(nullptr);
+  if (!display) {
+    throw error{ "Could not connect to display." };
+  }
+  wl_display_disconnect(display);
+}
+
+}  // namespace ace

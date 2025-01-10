@@ -56,3 +56,7 @@ add_subdirectory(src/vulkan)
 add_subdirectory(src/sqlite3)
 add_subdirectory(src/openssl)
 add_subdirectory(src/boost)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  add_subdirectory(src/wayland)
+endif()
